@@ -83,7 +83,7 @@
     .cursor-dot{position:absolute;width:12px;height:12px;border:2px solid #111;border-radius:50%;background:#fff;pointer-events:none;transform:translate(-50%,-50%);opacity:0}
 
     .manifesto{background:#111;color:#f5f3ee;position:relative;overflow:hidden}
-    .manifesto::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1489516408517-0c0a15662682?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;opacity:.15;transform:scale(1.1)}
+    .manifesto::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;opacity:.16;transform:scale(1.08)}
     .manifesto .wrap{position:relative}
     .manifesto p{max-width:980px}
     .manifesto .big{font-size:clamp(1.8rem,4.4vw,4rem);line-height:1.08}
@@ -138,8 +138,8 @@
   <section class="hero" id="hero">
     <div class="wrap hero-content">
       <div class="eyebrow mono">OffertPilot · Brutalist Signal</div>
-      <h1>Prioritera
-        <em>systemet.</em>
+      <h1>Välj rätt lead.
+        <em>Vinn rätt jobb.</em>
       </h1>
       <p>OffertPilot ger hantverksbolag en tydlig signal före varje offert: vilka leads ni ska ta nu, vilka ni ska kvalificera och vilka ni ska släppa.</p>
       <div class="hero-cta">
@@ -339,7 +339,19 @@
     }
     setInterval(runSched,3000); setTimeout(runSched,800);
 
-    // Arbetsflöde: helt statisk och robust layout (ingen JS-beroende animation)
+    // Arbetsflöde: fade-in på scroll (stabil)
+    gsap.from('.p-card',{
+      y:28,
+      opacity:0,
+      duration:.75,
+      stagger:0.16,
+      ease:'power3.out',
+      scrollTrigger:{
+        trigger:'#protocol',
+        start:'top 72%',
+        once:true
+      }
+    });
 
   </script>
 </body>
