@@ -386,43 +386,80 @@
       resize();
       window.addEventListener('resize', resize);
 
-      const blobs = [
-        {x:0.2,y:0.25,r:260,c:'#8f79ff',sx:0.00008,sy:0.00005},
-        {x:0.72,y:0.22,r:300,c:'#ff8f73',sx:-0.00006,sy:0.00007},
-        {x:0.52,y:0.72,r:340,c:'#a491ff',sx:0.00005,sy:-0.00004},
-        {x:0.86,y:0.74,r:280,c:'#ffb08c',sx:-0.00004,sy:-0.00006}
+      const nodes = [
+        {x:0.2,y:0.32,phase:0.2},{x:0.34,y:0.22,phase:1.1},{x:0.48,y:0.38,phase:2.3},
+        {x:0.64,y:0.26,phase:0.7},{x:0.78,y:0.36,phase:1.9},{x:0.72,y:0.58,phase:2.8},
+        {x:0.52,y:0.66,phase:0.4},{x:0.31,y:0.57,phase:1.6}
       ];
 
       function frame(t){
         const w = canvas.clientWidth;
         const h = canvas.clientHeight;
+        const cx = w * 0.66;
+        const cy = h * 0.42;
+        const baseR = Math.min(w,h) * 0.16;
+        const time = t * 0.001;
+
         ctx.clearRect(0,0,w,h);
 
-        // base light
+        // base
         ctx.fillStyle = '#f5f3ee';
         ctx.fillRect(0,0,w,h);
 
-        blobs.forEach((b,i)=>{
-          const px = (b.x + Math.sin(t*b.sx + i)*0.08) * w;
-          const py = (b.y + Math.cos(t*b.sy + i*1.7)*0.08) * h;
-          const g = ctx.createRadialGradient(px,py,0,px,py,b.r);
-          g.addColorStop(0,b.c+'ff');
-          g.addColorStop(0.5,b.c+'88');
-          g.addColorStop(1,'#ffffff00');
-          ctx.globalCompositeOperation = 'screen';
-          ctx.fillStyle = g;
+        // subtle gradient wash
+        const wash = ctx.createLinearGradient(0,0,w,h);
+        wash.addColorStop(0,'rgba(163,146,255,0.18)');
+        wash.addColorStop(0.6,'rgba(230,59,46,0.10)');
+        wash.addColorStop(1,'rgba(255,255,255,0)');
+        ctx.fillStyle = wash;
+        ctx.fillRect(0,0,w,h);
+
+        // signal links
+        ctx.strokeStyle = 'rgba(17,17,17,0.14)';
+        ctx.lineWidth = 1;
+        for(let i=0;i<nodes.length-1;i++){
+          const a = nodes[i], b = nodes[i+1];
           ctx.beginPath();
-          ctx.arc(px,py,b.r,0,Math.PI*2);
+          ctx.moveTo(a.x*w, a.y*h);
+          ctx.lineTo(b.x*w, b.y*h);
+          ctx.stroke();
+        }
+
+        // nodes pulse
+        nodes.forEach(n=>{
+          const x=n.x*w,y=n.y*h;
+          const pulse=(Math.sin(time*2.4+n.phase)+1)/2;
+          ctx.beginPath();
+          ctx.fillStyle=`rgba(230,59,46,${0.25+0.45*pulse})`;
+          ctx.arc(x,y,2.6+2.8*pulse,0,Math.PI*2);
           ctx.fill();
         });
 
-        ctx.globalCompositeOperation = 'source-over';
-        // subtle light veil
-        const v = ctx.createLinearGradient(0,0,0,h);
-        v.addColorStop(0,'rgba(255,255,255,0.04)');
-        v.addColorStop(1,'rgba(245,243,238,0.18)');
-        ctx.fillStyle = v;
-        ctx.fillRect(0,0,w,h);
+        // concentric rings
+        for(let i=0;i<4;i++){
+          const r = baseR + i*32 + Math.sin(time*1.2+i)*2;
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(17,17,17,${0.08 + i*0.03})`;
+          ctx.lineWidth = 1.2;
+          ctx.arc(cx,cy,r,0,Math.PI*2);
+          ctx.stroke();
+        }
+
+        // sweeping radar beam
+        const ang = time * 0.9;
+        const sweep = ctx.createRadialGradient(cx,cy,0,cx,cy,baseR+120);
+        sweep.addColorStop(0,'rgba(230,59,46,0.22)');
+        sweep.addColorStop(1,'rgba(230,59,46,0)');
+        ctx.save();
+        ctx.translate(cx,cy);
+        ctx.rotate(ang);
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        ctx.arc(0,0,baseR+120,-0.12,0.12);
+        ctx.closePath();
+        ctx.fillStyle = sweep;
+        ctx.fill();
+        ctx.restore();
 
         requestAnimationFrame(frame);
       }
