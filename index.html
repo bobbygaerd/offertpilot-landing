@@ -339,18 +339,15 @@
     }
     setInterval(runSched,3000); setTimeout(runSched,800);
 
-    // Arbetsflöde: fade-in på scroll (stabil)
-    gsap.from('.p-card',{
-      y:28,
-      opacity:0,
-      duration:.75,
-      stagger:0.16,
-      ease:'power3.out',
-      scrollTrigger:{
-        trigger:'#protocol',
-        start:'top 72%',
-        once:true
-      }
+    // Arbetsflöde: robust fade-in på scroll
+    gsap.set('.p-card',{opacity:1,y:0});
+    ScrollTrigger.batch('.p-card', {
+      start:'top 82%',
+      once:true,
+      onEnter:(batch)=>gsap.fromTo(batch,
+        {opacity:0,y:24},
+        {opacity:1,y:0,duration:.65,stagger:0.14,ease:'power3.out'}
+      )
     });
 
   </script>
