@@ -90,11 +90,12 @@
     .manifesto .big em{font-family:'DM Serif Display',serif;color:var(--accent);font-style:italic}
 
     .protocol{background:#ede9e1}
-    .pin-wrap{position:relative;height:auto;margin-top:18px}
-    .pin-stage{position:static;height:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .p-card{position:relative;width:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);padding:28px;box-shadow:0 20px 35px rgba(0,0,0,.06);transition:opacity .55s ease, transform .55s ease;opacity:0;transform:translateY(18px)}
-    .p-card.in{opacity:1;transform:translateY(0)}
-    .p-card:hover{transform:translateY(-2px)}
+    .pin-wrap{position:relative;height:320vh;margin-top:18px}
+    .pin-stage{position:sticky;top:8vh;height:84vh;display:grid;place-items:center}
+    .p-card{position:absolute;width:min(920px,92vw);background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);padding:28px;box-shadow:0 20px 35px rgba(0,0,0,.08);opacity:0;transform:translateY(120px) scale(.96)}
+    #pc1{z-index:1}
+    #pc2{z-index:2}
+    #pc3{z-index:3}
     .p-step{font-family:'Space Mono',monospace;font-size:.8rem;color:#666}
     .p-art{height:130px;margin-top:14px;border:1px dashed var(--line);border-radius:16px;display:grid;place-items:center;overflow:hidden}
 
@@ -117,7 +118,9 @@
       .nav-links{display:none}
       .hero{padding-top:150px}
       .hero h1 em{line-height:.88}
-      .pin-stage{grid-template-columns:1fr}
+      .pin-wrap{height:auto}
+      .pin-stage{position:static;height:auto;display:grid;grid-template-columns:1fr;gap:14px}
+      .p-card{position:relative;width:auto;opacity:1;transform:none}
     }
   </style>
 </head>
@@ -340,24 +343,31 @@
     }
     setInterval(runSched,3000); setTimeout(runSched,800);
 
-    // Arbetsflöde: robust fade-in på scroll (utan ScrollTrigger-beroende)
-    const flowCards = document.querySelectorAll('.p-card');
-    if(!('IntersectionObserver' in window)){
-      flowCards.forEach((c)=>c.classList.add('in'));
-    } else {
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach((entry)=>{
-          if(entry.isIntersecting){
-            entry.target.classList.add('in');
-            io.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.22 });
-      flowCards.forEach((card, i)=>{
-        card.style.transitionDelay = `${i * 120}ms`;
-        io.observe(card);
+    // Arbetsflöde: Sticky Stacking Archive (3 full-screen cards)
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 981px)', () => {
+      gsap.set('#pc1', { opacity: 1, y: 0, scale: 1 });
+      gsap.set('#pc2', { opacity: 0, y: 120, scale: 0.96 });
+      gsap.set('#pc3', { opacity: 0, y: 120, scale: 0.96 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#pinWrap',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 1
+        }
       });
-    }
+
+      tl.to('#pc1', { opacity: 0.52, scale: 0.9, y: -36, filter: 'blur(8px)', duration: 1 })
+        .to('#pc2', { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1 }, '<')
+        .to('#pc2', { opacity: 0.52, scale: 0.9, y: -36, filter: 'blur(8px)', duration: 1 })
+        .to('#pc3', { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1 }, '<');
+    });
+
+    mm.add('(max-width: 980px)', () => {
+      gsap.set('.p-card', { opacity: 1, y: 0, scale: 1, clearProps: 'filter' });
+    });
 
   </script>
 </body>
