@@ -1,0 +1,31 @@
+<svg width="280" height="56" viewBox="0 0 280 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lg" x1="6" y1="6" x2="50" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2DD4BF"/>
+      <stop offset="1" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="14" y1="12" x2="38" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Icon container -->
+  <rect x="0" y="0" width="56" height="56" rx="16" fill="#05070D"/>
+  <rect x="1" y="1" width="54" height="54" rx="15" stroke="rgba(148,163,184,.3)"/>
+
+  <!-- Offer document -->
+  <path d="M14 14C14 12.8954 14.8954 12 16 12H30L40 22V42C40 43.1046 39.1046 44 38 44H16C14.8954 44 14 43.1046 14 42V14Z" fill="url(#paper)" stroke="#334155"/>
+  <path d="M30 12V20C30 21.1046 30.8954 22 32 22H40" stroke="#475569"/>
+  <path d="M19 28H34" stroke="#64748B" stroke-linecap="round"/>
+  <path d="M19 33H31" stroke="#64748B" stroke-linecap="round"/>
+  <path d="M19 38H28" stroke="#64748B" stroke-linecap="round"/>
+
+  <!-- Pilot route/needle (pilot concept) -->
+  <circle cx="39" cy="17" r="10" fill="#0B1220" stroke="url(#lg)" stroke-width="1.5"/>
+  <path d="M39 11L41.8 17.2L39 23L36.2 17.2L39 11Z" fill="url(#lg)"/>
+  <circle cx="39" cy="17" r="1.7" fill="#E2E8F0"/>
+
+  <!-- Brand text -->
+  <text x="68" y="35" fill="#E5E7EB" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">OffertPilot</text>
+</svg>

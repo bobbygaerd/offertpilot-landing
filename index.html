@@ -6,200 +6,149 @@
   <title>OffertPilot | AI-offerttriage för hantverkare</title>
   <meta name="description" content="OffertPilot hjälper hantverksbolag att sortera leads, svara snabbare och vinna fler lönsamma jobb." />
   <style>
-    :root {
-      --bg: #05070d;
-      --surface: rgba(15, 23, 42, 0.72);
-      --line: rgba(148, 163, 184, 0.24);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --brand: #14b8a6;
-      --brand2: #22d3ee;
-      --ok: #34d399;
+    :root{
+      --bg:#04060c;--text:#e5e7eb;--muted:#9ca3af;--line:rgba(148,163,184,.24);
+      --surface:rgba(15,23,42,.58);--brand:#2dd4bf;--brand2:#60a5fa;--violet:#8b5cf6;
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.55;
-    }
-    .hero-bg {
-      background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(20,184,166,.35), transparent 55%),
-        radial-gradient(1200px 700px at 100% 0%, rgba(37,99,235,.28), transparent 60%),
-        radial-gradient(800px 500px at 50% 100%, rgba(139,92,246,.22), transparent 65%),
-        #05070d;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('./assets/hero-grid.svg') center/cover no-repeat;
-      opacity: 0.23;
-      pointer-events: none;
-    }
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; position: relative; z-index: 1; }
-    header { padding: 26px 0 14px; }
-    nav { display:flex; align-items:center; justify-content:space-between; }
-    nav img { height: 34px; }
-    .nav-cta { color: var(--text); text-decoration:none; font-weight:600; border:1px solid var(--line); padding:10px 14px; border-radius:10px; background: rgba(2,6,23,.4); }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.56}
+    .bg{position:fixed;inset:0;z-index:-2;background:url('./assets/lens-orb.svg') center/cover no-repeat}
+    .grain{position:fixed;inset:0;z-index:-1;opacity:.08;background-image:radial-gradient(#fff 1px, transparent 1px);background-size:3px 3px}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
 
-    .hero { padding: 44px 0 78px; display: grid; gap: 26px; grid-template-columns: 1.15fr .85fr; align-items: center; }
-    h1 { margin: 0 0 14px; font-size: clamp(2rem, 4.2vw, 3.35rem); line-height: 1.08; letter-spacing: -0.02em; }
-    .lead { color: #cbd5e1; max-width: 720px; font-size: 1.12rem; }
-    .cta-row { margin-top: 22px; display:flex; gap: 12px; flex-wrap: wrap; align-items:center; }
-    .btn {
-      text-decoration:none; display:inline-flex; align-items:center; justify-content:center;
-      padding: 13px 18px; border-radius: 12px; font-weight: 700;
-    }
-    .btn-primary { color:#052e2b; background: linear-gradient(135deg, var(--ok), var(--brand2)); }
-    .btn-ghost { color: var(--text); border:1px solid var(--line); background: rgba(2,6,23,.42); }
-    .micro { color: var(--muted); font-size: .92rem; }
+    header{padding:24px 0}
+    nav{display:flex;justify-content:space-between;align-items:center}
+    nav img{height:36px}
+    .nav-btn{border:1px solid var(--line);background:rgba(2,6,23,.45);color:var(--text);text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:600}
 
-    .panel {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 20px 45px rgba(0,0,0,.28);
-    }
-    .kpis { display:grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 14px; }
-    .kpi { border:1px solid var(--line); border-radius:12px; padding:12px; background: rgba(2,6,23,.45); }
-    .kpi b { display:block; font-size:1.2rem; color:#86efac; }
-    .section { padding: 62px 0; border-top: 1px solid rgba(148,163,184,.14); }
-    h2 { margin: 0 0 10px; font-size: clamp(1.45rem, 3.5vw, 2rem); }
-    .muted { color: var(--muted); }
-    .grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 18px; }
-    .card { background: rgba(15,23,42,.5); border:1px solid var(--line); border-radius:14px; padding:16px; }
-    .card h3 { margin:0 0 8px; font-size: 1.05rem; }
+    .hero{padding:34px 0 72px;display:grid;gap:24px;grid-template-columns:1.15fr .85fr;align-items:center}
+    h1{font-size:clamp(2rem,4.5vw,3.55rem);line-height:1.04;letter-spacing:-.03em;margin:0 0 14px}
+    .lead{color:#cbd5e1;font-size:1.12rem;max-width:760px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:12px;padding:13px 18px;font-weight:700}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#062b27;box-shadow:0 10px 30px rgba(34,211,238,.22)}
+    .btn-secondary{border:1px solid var(--line);background:rgba(2,6,23,.45);color:var(--text)}
+    .micro{font-size:.92rem;color:var(--muted)}
 
-    .steps { display:grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 16px; }
-    .step { background: rgba(2,6,23,.4); border:1px solid var(--line); border-radius:12px; padding:14px; }
-    .step span { color:#67e8f9; font-weight:700; }
+    .glass{background:var(--surface);border:1px solid var(--line);backdrop-filter:blur(14px);border-radius:18px;box-shadow:0 28px 60px rgba(0,0,0,.35)}
+    .hero-card{padding:18px}
+    .hero-card h3{margin:0 0 8px}
+    .kpi-grid{margin-top:14px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .kpi{padding:12px;border-radius:12px;border:1px solid var(--line);background:rgba(2,6,23,.5)}
+    .kpi b{display:block;color:#86efac;font-size:1.1rem}
 
-    .pricing { display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 16px; }
-    .tier { border:1px solid var(--line); border-radius:14px; padding:16px; background: rgba(15,23,42,.48); }
-    .tier strong { font-size: 1.65rem; }
+    section{padding:58px 0;border-top:1px solid rgba(148,163,184,.12)}
+    h2{font-size:clamp(1.4rem,3.2vw,2rem);margin:0 0 8px;letter-spacing:-.02em}
+    .muted{color:var(--muted)}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .card{padding:16px;border-radius:14px;border:1px solid var(--line);background:rgba(15,23,42,.48)}
+    .card h3{margin:0 0 8px;font-size:1.04rem}
 
-    .faq { display:grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-top: 14px; }
-    .faq .card { min-height: 120px; }
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+    .step{padding:14px;border-radius:12px;border:1px solid var(--line);background:rgba(2,6,23,.45)}
+    .step span{display:inline-block;font-weight:700;background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
 
-    footer { padding: 40px 0 60px; color: var(--muted); font-size: .9rem; }
+    .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+    .tier{padding:16px;border-radius:14px;border:1px solid var(--line);background:rgba(15,23,42,.5)}
+    .tier strong{font-size:1.65rem;letter-spacing:-.02em}
 
-    @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; padding-top: 26px; }
-      .grid3, .pricing, .faq, .steps { grid-template-columns: 1fr; }
+    .faq{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+
+    .final{padding:26px}
+    footer{padding:40px 0 62px;color:var(--muted);font-size:.9rem}
+
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .grid3,.steps,.pricing,.faq{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
-  <div class="hero-bg">
-    <header class="wrap">
-      <nav>
-        <img src="./assets/logo-offertpilot.svg" alt="OffertPilot" />
-        <a class="nav-cta" href="#kontakt">Boka demo</a>
-      </nav>
-    </header>
+  <div class="bg"></div><div class="grain"></div>
 
-    <main class="wrap hero">
-      <section>
-        <h1>Sortera rätt leads först. <br>Vinn fler lönsamma jobb.</h1>
-        <p class="lead">OffertPilot hjälper VVS-, el-, måleri- och byggbolag att prioritera inkommande förfrågningar med AI — så ni svarar snabbare på rätt affärer.</p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="#kontakt">Boka 20 min demo</a>
-          <a class="btn btn-ghost" href="#hur">Se hur det fungerar</a>
-        </div>
-        <p class="micro">Ingen bindning i pilot • Start inom 2–5 arbetsdagar</p>
-      </section>
+  <header class="wrap">
+    <nav>
+      <img src="./assets/logo-offertpilot-v2.svg" alt="OffertPilot" />
+      <a class="nav-btn" href="#kontakt">Boka demo</a>
+    </nav>
+  </header>
 
-      <aside class="panel">
-        <h3 style="margin:0 0 6px">Vad ni får i pilot</h3>
-        <p class="muted" style="margin:0">14 dagar med era riktiga leads. Tydlig before/after på svarstid och uppföljning.</p>
-        <div class="kpis">
-          <div class="kpi"><b>A/B/C</b><span class="muted">Lead-triage</span></div>
-          <div class="kpi"><b>&lt;5 min</b><span class="muted">Mål för förstarespons</span></div>
-          <div class="kpi"><b>Veckovis</b><span class="muted">KPI-rapport</span></div>
-          <div class="kpi"><b>ROI i SEK</b><span class="muted">Konkret beslutsunderlag</span></div>
-        </div>
-      </aside>
-    </main>
-  </div>
+  <main class="wrap hero">
+    <section>
+      <h1>Offert in. Rätt kurs ut.</h1>
+      <p class="lead">OffertPilot triagerar varje ny förfrågan med AI och guidar teamet till rätt nästa steg — så ni svarar snabbare och lägger tid på affärer med bättre marginal.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#kontakt">Boka 20 min demo</a>
+        <a class="btn btn-secondary" href="#hur">Så fungerar det</a>
+      </div>
+      <p class="micro">Ingen bindning i pilot · Start inom 2–5 arbetsdagar</p>
+    </section>
 
-  <section class="section wrap">
-    <h2>Problemet vi löser</h2>
-    <p class="muted">Bra leads tappas när allt går via samma kö och prioriteras manuellt.</p>
+    <aside class="glass hero-card">
+      <h3>Pilotupplägg (14 dagar)</h3>
+      <p class="muted">Vi kör på era riktiga leads och levererar en tydlig före/efter-rapport i tid och kronor.</p>
+      <div class="kpi-grid">
+        <div class="kpi"><b>A/B/C</b><span class="muted">Triage per lead</span></div>
+        <div class="kpi"><b>&lt;5 min</b><span class="muted">Mål för förstarespons</span></div>
+        <div class="kpi"><b>Veckovis</b><span class="muted">KPI-rapport</span></div>
+        <div class="kpi"><b>ROI i SEK</b><span class="muted">Beslutsunderlag</span></div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="wrap">
+    <h2>Varför OffertPilot?</h2>
+    <p class="muted">De flesta tappar inte leads för att de saknar efterfrågan — de tappar dem i prioriteringen.</p>
     <div class="grid3">
-      <article class="card"><h3>För sen återkoppling</h3><p class="muted">Kunder går till konkurrenter som svarar först.</p></article>
-      <article class="card"><h3>Fel jobb prioriteras</h3><p class="muted">Tid läggs på lågkvalitativa eller olönsamma case.</p></article>
-      <article class="card"><h3>Admin blir flaskhals</h3><p class="muted">Teamet hinner inte sortera allt inför offert.</p></article>
+      <article class="card"><h3>Snabbare svar</h3><p class="muted">A-leads flaggas direkt till rätt person.</p></article>
+      <article class="card"><h3>Bättre urval</h3><p class="muted">Lågkvalitativa case filtreras innan de stjäl tid.</p></article>
+      <article class="card"><h3>Mindre admin</h3><p class="muted">Standardiserade flöden i stället för ad hoc-hantering.</p></article>
     </div>
   </section>
 
-  <section id="hur" class="section wrap">
-    <h2>Så fungerar OffertPilot</h2>
+  <section id="hur" class="wrap">
+    <h2>Så fungerar det</h2>
     <div class="steps">
-      <div class="step"><span>01</span><p>Koppla offertmail/formulär.</p></div>
-      <div class="step"><span>02</span><p>Definiera era kriterier: område, jobbtyp, minbudget.</p></div>
-      <div class="step"><span>03</span><p>AI klassar varje förfrågan i A/B/C med nästa steg.</p></div>
-      <div class="step"><span>04</span><p>Ni fokuserar på leads med högst affärsvärde.</p></div>
+      <div class="step"><span>01</span><p>Koppla offertmail och formulär.</p></div>
+      <div class="step"><span>02</span><p>Sätt kriterier: område, jobbtyp, minbudget.</p></div>
+      <div class="step"><span>03</span><p>AI klassar lead och föreslår åtgärd.</p></div>
+      <div class="step"><span>04</span><p>Fokusera teamet på rätt affärer först.</p></div>
     </div>
   </section>
 
-  <section class="section wrap">
-    <h2>ROI-exempel i kronor</h2>
+  <section class="wrap">
+    <h2>ROI i kronor</h2>
     <div class="grid3">
-      <div class="card"><h3>14 h/vecka sparad tid</h3><p class="muted">Mindre manuell offertsortering.</p></div>
-      <div class="card"><h3>≈ 33 110 kr/mån</h3><p class="muted">Möjlig intern besparing vid 550 kr/h.</p></div>
-      <div class="card"><h3>1 extra vunnet jobb</h3><p class="muted">Kan ofta betala hela tjänsten flera gånger om.</p></div>
+      <div class="card"><h3>14h/vecka sparad tid</h3><p class="muted">Mindre manuell offertsortering.</p></div>
+      <div class="card"><h3>≈ 33 110 kr/mån</h3><p class="muted">Möjlig intern besparing (550 kr/h).</p></div>
+      <div class="card"><h3>1 extra vunnet jobb</h3><p class="muted">Kan ofta täcka tjänsten flera gånger om.</p></div>
     </div>
   </section>
 
-  <section class="section wrap">
+  <section class="wrap">
     <h2>Priser</h2>
     <div class="pricing">
-      <article class="tier">
-        <h3>Pilot</h3>
-        <strong>2 900 kr</strong>
-        <p class="muted">14 dagar</p>
-        <ul>
-          <li>A/B/C-triage</li><li>Setup + KPI-baslinje</li><li>Slutrapport med ROI</li>
-        </ul>
-      </article>
-      <article class="tier">
-        <h3>Starter</h3>
-        <strong>4 900 kr/mån</strong>
-        <ul>
-          <li>Leadfångst + triage</li><li>Standardsvar</li><li>Veckovis uppföljning</li>
-        </ul>
-      </article>
-      <article class="tier">
-        <h3>Growth</h3>
-        <strong>8 900 kr/mån</strong>
-        <ul>
-          <li>Allt i Starter</li><li>Uppföljningssekvenser</li><li>Månadsoptimering</li>
-        </ul>
-      </article>
+      <article class="tier"><h3>Pilot</h3><strong>2 900 kr</strong><p class="muted">14 dagar med era riktiga leads</p></article>
+      <article class="tier"><h3>Starter</h3><strong>4 900 kr/mån</strong><p class="muted">Leadfångst, triage, standardsvar</p></article>
+      <article class="tier"><h3>Growth</h3><strong>8 900 kr/mån</strong><p class="muted">Starter + uppföljningssekvenser + optimering</p></article>
     </div>
   </section>
 
-  <section class="section wrap">
+  <section class="wrap">
     <h2>Vanliga frågor</h2>
     <div class="faq">
-      <article class="card"><h3>Är detta ett nytt CRM?</h3><p class="muted">Nej, OffertPilot är ett triagelager före ert nuvarande system.</p></article>
-      <article class="card"><h3>Hur snabbt kommer vi igång?</h3><p class="muted">Vanligtvis inom 2–5 arbetsdagar.</p></article>
-      <article class="card"><h3>Behöver vi IT-resurser internt?</h3><p class="muted">Nej, vi hanterar setup och kalibrering.</p></article>
-      <article class="card"><h3>Vad händer om AI bedömer fel?</h3><p class="muted">Ni har alltid sista ordet, och regler justeras löpande.</p></article>
+      <article class="card"><h3>Är detta ett nytt CRM?</h3><p class="muted">Nej, ett triagelager före ert nuvarande system.</p></article>
+      <article class="card"><h3>Hur snabbt är vi live?</h3><p class="muted">Vanligtvis inom 2–5 arbetsdagar.</p></article>
+      <article class="card"><h3>Behöver vi teknisk kompetens?</h3><p class="muted">Nej, vi sköter setup och kalibrering.</p></article>
+      <article class="card"><h3>Vad om AI klassar fel?</h3><p class="muted">Ni har alltid sista ordet och reglerna justeras löpande.</p></article>
     </div>
   </section>
 
-  <section id="kontakt" class="section wrap" style="padding-bottom:30px">
-    <div class="panel">
-      <h2 style="margin-top:0">Redo att testa på era riktiga leads?</h2>
-      <p class="muted">Boka en 20 min demo så räknar vi potentialen i kronor baserat på er process.</p>
+  <section id="kontakt" class="wrap">
+    <div class="glass final">
+      <h2>Redo att testa OffertPilot på era egna leads?</h2>
+      <p class="muted">Boka en 20-minuters demo så räknar vi potentialen i kronor baserat på er process.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="mailto:bobby@gaerd.se?subject=Demo%20OffertPilot">Boka 20 min demo</a>
         <span class="micro">Ingen bindning i pilot</span>
@@ -207,6 +156,6 @@
     </div>
   </section>
 
-  <footer class="wrap">© OffertPilot • AI-offerttriage för hantverkare</footer>
+  <footer class="wrap">© OffertPilot — offert + pilot, i samma riktning.</footer>
 </body>
 </html>
