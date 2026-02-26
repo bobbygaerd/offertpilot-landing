@@ -44,17 +44,17 @@
 
     .hero{min-height:100dvh;position:relative;display:flex;align-items:flex-end;padding:120px 0 72px;overflow:hidden}
     .hero::before{content:"";position:absolute;inset:0;background:
-      linear-gradient(to top, rgba(17,17,17,.84) 8%, rgba(17,17,17,.46) 42%, rgba(17,17,17,.18) 72%);z-index:-1}
+      linear-gradient(to top, rgba(245,243,238,.82) 8%, rgba(245,243,238,.46) 42%, rgba(245,243,238,.16) 72%);z-index:-1}
     #heroMesh{position:absolute;inset:0;z-index:-2;width:100%;height:100%;display:block;filter:saturate(1.05) contrast(1.02)}
-    .hero-content{max-width:840px;color:#F5F3EE}
-    .eyebrow{font-family:'Space Mono',monospace;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+    .hero-content{max-width:840px;color:#111111}
+    .eyebrow{font-family:'Space Mono',monospace;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;opacity:.75;color:#3f3f46}
     .hero h1{margin:.45rem 0 .3rem;font-size:clamp(2.1rem,7vw,6rem);line-height:.95;letter-spacing:-.03em}
     .hero h1 em{display:block;font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(2rem,6.2vw,5.2rem);line-height:.9;color:var(--accent)}
-    .hero p{max-width:640px;color:rgba(245,243,238,.9)}
+    .hero p{max-width:640px;color:#3f3f46}
     .hero-cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
-    .btn-light{border-color:#f5f3ee;color:#f5f3ee}
-    .btn-light .slide{background:#f5f3ee}
-    .btn-light:hover span{color:#111}
+    .btn-light{border-color:#111;color:#111;background:rgba(255,255,255,.35)}
+    .btn-light .slide{background:#111}
+    .btn-light:hover span{color:#fff}
 
     section{padding:88px 0;border-top:1px solid var(--line)}
     h2{font-size:clamp(1.8rem,3.8vw,3rem);line-height:1.03;letter-spacing:-.02em;margin:0 0 8px}
@@ -387,10 +387,10 @@
       window.addEventListener('resize', resize);
 
       const blobs = [
-        {x:0.2,y:0.25,r:240,c:'#6f5cff',sx:0.00008,sy:0.00005},
-        {x:0.72,y:0.22,r:280,c:'#e63b2e',sx:-0.00006,sy:0.00007},
-        {x:0.52,y:0.72,r:320,c:'#8b7dff',sx:0.00005,sy:-0.00004},
-        {x:0.86,y:0.74,r:260,c:'#ff9b7a',sx:-0.00004,sy:-0.00006}
+        {x:0.2,y:0.25,r:240,c:'#b6a7ff',sx:0.00008,sy:0.00005},
+        {x:0.72,y:0.22,r:280,c:'#ffb4a1',sx:-0.00006,sy:0.00007},
+        {x:0.52,y:0.72,r:320,c:'#c4b7ff',sx:0.00005,sy:-0.00004},
+        {x:0.86,y:0.74,r:260,c:'#ffd2be',sx:-0.00004,sy:-0.00006}
       ];
 
       function frame(t){
@@ -398,8 +398,8 @@
         const h = canvas.clientHeight;
         ctx.clearRect(0,0,w,h);
 
-        // base dark
-        ctx.fillStyle = '#0f1117';
+        // base light
+        ctx.fillStyle = '#f5f3ee';
         ctx.fillRect(0,0,w,h);
 
         blobs.forEach((b,i)=>{
@@ -408,7 +408,7 @@
           const g = ctx.createRadialGradient(px,py,0,px,py,b.r);
           g.addColorStop(0,b.c+'cc');
           g.addColorStop(0.45,b.c+'55');
-          g.addColorStop(1,'#00000000');
+          g.addColorStop(1,'#ffffff00');
           ctx.globalCompositeOperation = 'screen';
           ctx.fillStyle = g;
           ctx.beginPath();
@@ -417,10 +417,10 @@
         });
 
         ctx.globalCompositeOperation = 'source-over';
-        // subtle vertical vignette
+        // subtle light veil
         const v = ctx.createLinearGradient(0,0,0,h);
-        v.addColorStop(0,'rgba(5,6,10,0.18)');
-        v.addColorStop(1,'rgba(5,6,10,0.62)');
+        v.addColorStop(0,'rgba(255,255,255,0.12)');
+        v.addColorStop(1,'rgba(245,243,238,0.55)');
         ctx.fillStyle = v;
         ctx.fillRect(0,0,w,h);
 
