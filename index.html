@@ -90,9 +90,10 @@
     .manifesto .big em{font-family:'DM Serif Display',serif;color:var(--accent);font-style:italic}
 
     .protocol{background:#ede9e1}
-    .pin-wrap{position:relative;height:240vh}
-    .pin-stage{position:sticky;top:10vh;height:80vh;display:grid;place-items:center}
-    .p-card{position:absolute;width:min(840px,92vw);background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);padding:28px;box-shadow:0 30px 60px rgba(0,0,0,.08);transition:.3s}
+    .pin-wrap{position:relative;height:auto;margin-top:18px}
+    .pin-stage{position:static;height:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .p-card{position:relative;width:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);padding:28px;box-shadow:0 20px 35px rgba(0,0,0,.06);transition:.25s ease}
+    .p-card:hover{transform:translateY(-2px)}
     .p-step{font-family:'Space Mono',monospace;font-size:.8rem;color:#666}
     .p-art{height:130px;margin-top:14px;border:1px dashed var(--line);border-radius:16px;display:grid;place-items:center;overflow:hidden}
 
@@ -115,7 +116,7 @@
       .nav-links{display:none}
       .hero{padding-top:150px}
       .hero h1 em{line-height:.88}
-      .pin-stage{top:8vh}
+      .pin-stage{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -338,20 +339,14 @@
     }
     setInterval(runSched,3000); setTimeout(runSched,800);
 
-    // Arbetsflöde-stack animation (ingen aggressiv blur)
-    const cards=['#pc1','#pc2','#pc3'];
-    cards.forEach((c,i)=>gsap.set(c,{zIndex:3-i,y:i*8,scale:1-i*0.02,filter:'blur(0px)'}));
-    ScrollTrigger.create({
-      trigger:'#pinWrap',start:'top top',end:'bottom bottom',scrub:true,
-      onUpdate:self=>{
-        const p=self.progress;
-        const c1=document.querySelector('#pc1'),c2=document.querySelector('#pc2'),c3=document.querySelector('#pc3');
-        const s1=Math.max(0.94,1-p*0.12); const o1=Math.max(0.75,1-p*0.25);
-        const s2=Math.max(0.95,1-Math.max(0,p-0.33)*0.12); const o2=Math.max(0.82,1-Math.max(0,p-0.33)*0.22);
-        c1.style.transform=`scale(${s1})`; c1.style.opacity=o1; c1.style.filter='blur(0px)';
-        c2.style.transform=`scale(${s2})`; c2.style.opacity=o2; c2.style.filter='blur(0px)';
-        c3.style.opacity=1; c3.style.filter='blur(0px)';
-      }
+    // Arbetsflöde animation (stabil): reveal korten in i sektionen
+    gsap.from('.p-card',{
+      y:24,
+      opacity:0,
+      duration:.7,
+      stagger:0.15,
+      ease:'power3.out',
+      scrollTrigger:{trigger:'#protocol',start:'top 70%'}
     });
 
     // tiny SVG arts
