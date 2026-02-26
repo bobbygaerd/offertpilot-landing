@@ -92,7 +92,8 @@
     .protocol{background:#ede9e1}
     .pin-wrap{position:relative;height:auto;margin-top:18px}
     .pin-stage{position:static;height:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .p-card{position:relative;width:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);padding:28px;box-shadow:0 20px 35px rgba(0,0,0,.06);transition:.25s ease}
+    .p-card{position:relative;width:auto;background:#fff;border:1px solid var(--line);border-radius:var(--radius-xl);padding:28px;box-shadow:0 20px 35px rgba(0,0,0,.06);transition:opacity .55s ease, transform .55s ease;opacity:0;transform:translateY(18px)}
+    .p-card.in{opacity:1;transform:translateY(0)}
     .p-card:hover{transform:translateY(-2px)}
     .p-step{font-family:'Space Mono',monospace;font-size:.8rem;color:#666}
     .p-art{height:130px;margin-top:14px;border:1px dashed var(--line);border-radius:16px;display:grid;place-items:center;overflow:hidden}
@@ -339,16 +340,24 @@
     }
     setInterval(runSched,3000); setTimeout(runSched,800);
 
-    // Arbetsflöde: robust fade-in på scroll
-    gsap.set('.p-card',{opacity:1,y:0});
-    ScrollTrigger.batch('.p-card', {
-      start:'top 82%',
-      once:true,
-      onEnter:(batch)=>gsap.fromTo(batch,
-        {opacity:0,y:24},
-        {opacity:1,y:0,duration:.65,stagger:0.14,ease:'power3.out'}
-      )
-    });
+    // Arbetsflöde: robust fade-in på scroll (utan ScrollTrigger-beroende)
+    const flowCards = document.querySelectorAll('.p-card');
+    if(!('IntersectionObserver' in window)){
+      flowCards.forEach((c)=>c.classList.add('in'));
+    } else {
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach((entry)=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.22 });
+      flowCards.forEach((card, i)=>{
+        card.style.transitionDelay = `${i * 120}ms`;
+        io.observe(card);
+      });
+    }
 
   </script>
 </body>
