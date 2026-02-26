@@ -207,19 +207,19 @@
           <div class="p-step">STEG 01</div>
           <h3>Fånga</h3>
           <p>Samla alla leads från formulär och mejl i ett gemensamt inflöde.</p>
-          <div class="p-art"><svg viewBox="0 0 200 120" width="100%" height="100%"><g transform="translate(100 60)"><circle r="28" fill="none" stroke="#111"/><circle r="44" fill="none" stroke="#E63B2E"/><line x1="-50" y1="0" x2="50" y2="0" stroke="#111"/><line x1="0" y1="-50" x2="0" y2="50" stroke="#111"/></g></svg></div>
+          <div class="p-art"><svg viewBox="0 0 200 120" width="100%" height="100%"><g id="geoSpin" transform="translate(100 60)"><circle r="24" fill="none" stroke="#111"/><circle r="40" fill="none" stroke="#E63B2E"/><line x1="-48" y1="0" x2="48" y2="0" stroke="#111"/><line x1="0" y1="-48" x2="0" y2="48" stroke="#111"/></g></svg></div>
         </article>
         <article class="p-card" id="pc2">
           <div class="p-step">STEG 02</div>
           <h3>Prioritera</h3>
           <p>Varje lead får A/B/C-klassning och tydligt nästa steg.</p>
-          <div class="p-art"><svg viewBox="0 0 200 120" width="100%" height="100%"><defs><pattern id="g2" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#666"/></pattern></defs><rect width="200" height="120" fill="url(#g2)"/><rect y="52" width="200" height="8" fill="#E63B2E" opacity=".4"/></svg></div>
+          <div class="p-art"><svg viewBox="0 0 200 120" width="100%" height="100%"><defs><pattern id="g2" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#666"/></pattern></defs><rect width="200" height="120" fill="url(#g2)"/><rect id="scanLine" y="0" width="200" height="8" fill="#E63B2E" opacity=".45"/></svg></div>
         </article>
         <article class="p-card" id="pc3">
           <div class="p-step">STEG 03</div>
           <h3>Följ upp & mät</h3>
           <p>Trigga uppföljning och rapportera svarstid, uppföljningsgrad och bokade offertmöten varje vecka.</p>
-          <div class="p-art"><svg viewBox="0 0 300 120" width="100%" height="100%"><path d="M0,70 C30,20 60,120 90,70 C120,20 150,120 180,70 C210,20 240,120 270,70 C285,45 295,60 300,60" fill="none" stroke="#111" stroke-width="3"/></svg></div>
+          <div class="p-art"><svg viewBox="0 0 300 120" width="100%" height="100%"><path id="ekgWave" d="M0,70 C30,20 60,120 90,70 C120,20 150,120 180,70 C210,20 240,120 270,70 C285,45 295,60 300,60" fill="none" stroke="#111" stroke-width="3" stroke-dasharray="460" stroke-dashoffset="460"/></svg></div>
         </article>
       </div>
     </div>
@@ -367,6 +367,31 @@
 
     mm.add('(max-width: 980px)', () => {
       gsap.set('.p-card', { opacity: 1, y: 0, scale: 1, clearProps: 'filter' });
+    });
+
+    // Unique SVG animations for Sticky Stacking Archive
+    gsap.to('#geoSpin', {
+      rotation: 360,
+      transformOrigin: '50% 50%',
+      duration: 18,
+      repeat: -1,
+      ease: 'none'
+    });
+
+    gsap.to('#scanLine', {
+      y: 112,
+      duration: 2.2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power2.inOut'
+    });
+
+    gsap.to('#ekgWave', {
+      strokeDashoffset: 0,
+      duration: 2.4,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power2.inOut'
     });
 
   </script>
