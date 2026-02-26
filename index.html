@@ -3,41 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OffertPilot — AI-offerttriage för hantverkare</title>
+  <title>OffertPilot | AI-offerttriage för hantverkare</title>
+  <meta name="description" content="OffertPilot hjälper hantverksbolag prioritera rätt offertförfrågningar, svara snabbare och vinna fler lönsamma jobb." />
   <style>
-    body{font-family:Arial,sans-serif;max-width:900px;margin:40px auto;padding:0 16px;line-height:1.5;color:#111}
-    h1{font-size:2rem} .cta{display:inline-block;background:#111;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none}
-    .box{background:#f6f6f6;padding:16px;border-radius:10px;margin:16px 0}
+    :root{--bg:#0b1020;--text:#111827;--muted:#4b5563;--brand:#0f766e;--brand2:#0b5e58;--card:#f8fafc;--line:#e5e7eb}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);line-height:1.6;background:#fff}
+    .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+    .hero{background:linear-gradient(135deg,#0b1020,#111827);color:#fff;padding:72px 0}
+    h1{font-size:42px;line-height:1.15;margin:0 0 12px} h2{font-size:30px;line-height:1.2;margin:0 0 10px}
+    .sub{font-size:19px;color:#d1d5db;max-width:780px}
+    .cta{display:inline-block;background:var(--brand);color:#fff;padding:13px 20px;border-radius:10px;text-decoration:none;font-weight:700}
+    .cta:hover{background:var(--brand2)} .ghost{color:#d1d5db;margin-left:14px}
+    section{padding:56px 0;border-bottom:1px solid var(--line)}
+    .grid{display:grid;gap:16px}.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .card{background:var(--card);padding:18px;border:1px solid var(--line);border-radius:12px}
+    .kpi{font-size:28px;font-weight:800;color:var(--brand)}
+    .muted{color:var(--muted)}
+    ul{padding-left:20px;margin:8px 0}
+    .price{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .tier{border:1px solid var(--line);border-radius:12px;padding:18px}
+    .tier h3{margin:0 0 8px}.tier strong{font-size:28px}
+    .footer-cta{background:#f3f4f6}
+    @media (max-width:700px){h1{font-size:34px}.sub{font-size:17px}}
   </style>
 </head>
 <body>
-  <h1>OffertPilot</h1>
-  <p><strong>AI-offerttriage för hantverkare.</strong> Sortera inkommande förfrågningar på sekunder och fokusera på jobben ni faktiskt vill vinna.</p>
-  <p><a class="cta" href="#kontakt">Boka 20 min demo</a></p>
+  <header class="hero">
+    <div class="wrap">
+      <p class="muted" style="color:#9ca3af;margin:0 0 8px">OffertPilot</p>
+      <h1>Sortera rätt leads först. Vinn fler lönsamma jobb.</h1>
+      <p class="sub">För VVS, el, måleri och byggservice. OffertPilot triagerar nya förfrågningar på sekunder så ni kan svara snabbare på rätt affärer.</p>
+      <p style="margin-top:20px">
+        <a class="cta" href="#kontakt">Boka 20 min demo</a>
+        <span class="ghost">Ingen bindning i pilot</span>
+      </p>
+    </div>
+  </header>
 
-  <div class="box">
-    <h2>Problemet</h2>
-    <p>Leads kommer in via mail och formulär, men teamet hinner inte svara snabbt eller prioritera rätt. Resultat: tappade affärer och onödig admin.</p>
-  </div>
+  <section>
+    <div class="wrap">
+      <h2>Problemet vi löser</h2>
+      <div class="grid g3">
+        <div class="card"><strong>För sent svar</strong><p class="muted">Bra leads hinner gå till konkurrent innan ni återkopplar.</p></div>
+        <div class="card"><strong>Fel prioritering</strong><p class="muted">Teamet lägger tid på förfrågningar med låg affärspotential.</p></div>
+        <div class="card"><strong>Adminspill</strong><p class="muted">Offertflödet blir en flaskhals när allt måste sorteras manuellt.</p></div>
+      </div>
+    </div>
+  </section>
 
-  <div class="box">
-    <h2>Lösningen</h2>
-    <ul>
-      <li>A/B/C-klassning av varje ny förfrågan</li>
-      <li>Föreslagen nästa åtgärd (ring nu / komplettera / avstå)</li>
-      <li>Autosvar och notifieringar</li>
-      <li>Veckorapport med KPI</li>
-    </ul>
-  </div>
+  <section>
+    <div class="wrap">
+      <h2>Så fungerar det</h2>
+      <div class="grid g3">
+        <div class="card"><strong>1. Koppla era kanaler</strong><p class="muted">Offertmail och formulär in i ett triageflöde.</p></div>
+        <div class="card"><strong>2. A/B/C-klassning</strong><p class="muted">Varje lead får score + motivering + rekommenderad åtgärd.</p></div>
+        <div class="card"><strong>3. Snabb uppföljning</strong><p class="muted">A-leads prioriteras direkt, B kompletteras, C filtreras bort.</p></div>
+      </div>
+    </div>
+  </section>
 
-  <div class="box">
-    <h2>Pris</h2>
-    <p>Pilot 14 dagar: <strong>2 900 kr</strong><br>Starter: <strong>4 900 kr/mån</strong><br>Growth: <strong>8 900 kr/mån</strong></p>
-  </div>
+  <section>
+    <div class="wrap">
+      <h2>ROI i kronor (exempel)</h2>
+      <div class="grid g3">
+        <div class="card"><div class="kpi">14h/vecka</div><p class="muted">sparad offertadministration</p></div>
+        <div class="card"><div class="kpi">33 110 kr/mån</div><p class="muted">möjlig intern tidsbesparing (550 kr/h)</p></div>
+        <div class="card"><div class="kpi">1 extra jobb</div><p class="muted">kan ofta betala hela tjänsten flera gånger om</p></div>
+      </div>
+    </div>
+  </section>
 
-  <div id="kontakt" class="box">
-    <h2>Kontakt</h2>
-    <p>Svara med "demo" så bokar vi ett 20-minuters möte och räknar ROI i kronor på era siffror.</p>
-  </div>
+  <section>
+    <div class="wrap">
+      <h2>Pris</h2>
+      <div class="price">
+        <div class="tier">
+          <h3>Pilot (14 dagar)</h3>
+          <p><strong>2 900 kr</strong></p>
+          <ul>
+            <li>Snabb setup</li>
+            <li>A/B/C-triage</li>
+            <li>KPI-rapport</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <h3>Starter</h3>
+          <p><strong>4 900 kr/mån</strong></p>
+          <ul>
+            <li>Leadfångst + triage</li>
+            <li>Standardsvar</li>
+            <li>Veckovis uppföljning</li>
+          </ul>
+        </div>
+        <div class="tier">
+          <h3>Growth</h3>
+          <p><strong>8 900 kr/mån</strong></p>
+          <ul>
+            <li>Allt i Starter</li>
+            <li>Uppföljningssekvenser</li>
+            <li>Månadsrapport + optimering</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-cta" id="kontakt">
+    <div class="wrap">
+      <h2>Vill ni testa på era riktiga leads?</h2>
+      <p class="muted">Boka en kort demo så räknar vi på er potentiella effekt i kronor.</p>
+      <p><a class="cta" href="mailto:bobby@gaerd.se?subject=Demo%20OffertPilot">Boka 20 min demo</a></p>
+      <p class="muted" style="font-size:14px">Ingen bindning i pilot.</p>
+    </div>
+  </section>
 </body>
 </html>
