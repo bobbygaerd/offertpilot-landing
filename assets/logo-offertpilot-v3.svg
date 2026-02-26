@@ -1,0 +1,8 @@
+<svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0.5" y="0.5" width="43" height="43" rx="12" fill="#F8FAF9" stroke="#DCE7E2"/>
+  <path d="M11 12.5C11 11.67 11.67 11 12.5 11H23.5L30.5 18V31.5C30.5 32.33 29.83 33 29 33H12.5C11.67 33 11 32.33 11 31.5V12.5Z" fill="#FFFFFF" stroke="#CBD7D1"/>
+  <path d="M23.5 11V16.8C23.5 17.46 24.04 18 24.7 18H30.5" stroke="#CBD7D1"/>
+  <circle cx="31" cy="12" r="5.5" fill="#E7F7EF" stroke="#B9EACF"/>
+  <path d="M31 8.8L32.3 12L31 15.2L29.7 12L31 8.8Z" fill="#22C55E"/>
+  <text x="54" y="28" fill="#0F172A" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="600">OffertPilot</text>
+</svg>
