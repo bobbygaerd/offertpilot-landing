@@ -362,17 +362,18 @@
       transition: transform .28s ease, background .28s ease, border-color .28s ease, box-shadow .28s ease
     }
 
-    .pick10-box.hot {
-      background: linear-gradient(180deg, #ff8d7f, #e63b2e);
-      border-color: #d4362b;
+    .pick10-box.hot-pos {
+      background: linear-gradient(180deg, #8df3b8, #16a34a);
+      border-color: #15803d;
       transform: translateY(-8px);
-      box-shadow: 0 8px 14px rgba(230, 59, 46, .22)
+      box-shadow: 0 8px 14px rgba(22, 163, 74, .24)
     }
 
-    .pick-caption {
-      margin-top: 10px;
-      font-size: .78rem;
-      color: #666
+    .pick10-box.hot-neg {
+      background: linear-gradient(180deg, #ff8d7f, #e63b2e);
+      border-color: #d4362b;
+      transform: translateY(8px);
+      box-shadow: 0 8px 14px rgba(230, 59, 46, .22)
     }
 
     .manifesto {
@@ -645,7 +646,7 @@
             <div class="pick10-box"></div>
             <div class="pick10-box"></div>
           </div>
-          <div class="pick-caption mono">Röd = utvalda leads med hög prioritet</div>
+
         </article>
       </div>
     </div>
@@ -817,21 +818,49 @@
     let pickStep = 0;
     function runPickLoop() {
       if (!pickBoxes.length) return;
-      pickBoxes.forEach(b => b.classList.remove('hot'));
-      const a = (pickStep % pickBoxes.length);
-      const b = ((pickStep + 3) % pickBoxes.length);
-      pickBoxes[a].classList.add('hot');
-      pickBoxes[b].classList.add('hot');
 
+      // reset states
+      pickBoxes.forEach(b => b.classList.remove('hot-pos', 'hot-neg'));
+
+      // välj 2 positiva (gröna, upp) + 1 negativ (röd, ner)
+      const posA = (pickStep % pickBoxes.length);
+      const posB = ((pickStep + 4) % pickBoxes.length);
+      const neg = ((pickStep + 7) % pickBoxes.length);
+      pickBoxes[posA].classList.add('hot-pos');
+      pickBoxes[posB].classList.add('hot-pos');
+      pickBoxes[neg].classList.add('hot-neg');
+
+      // skicka ut alla till höger
+      gsap.to(pickBoxes, {
+        x: 24,
+        opacity: 0,
+        duration: 0.22,
+        stagger: 0.015,
+        ease: 'power2.in',
+        onComplete: () => {
+          // reset och skicka in från vänster
+          gsap.set(pickBoxes, { x: -24, opacity: 0 });
+          gsap.to(pickBoxes, {
+            x: 0,
+            opacity: 1,
+            duration: 0.28,
+            stagger: 0.018,
+            ease: 'power2.out'
+          });
+        }
+      });
+
+      // återställ färg/position innan nästa varv
       setTimeout(() => {
-        pickBoxes[a].classList.remove('hot');
-        pickBoxes[b].classList.remove('hot');
-      }, 900);
+        pickBoxes[posA].classList.remove('hot-pos');
+        pickBoxes[posB].classList.remove('hot-pos');
+        pickBoxes[neg].classList.remove('hot-neg');
+      }, 950);
 
       pickStep = (pickStep + 1) % pickBoxes.length;
     }
     runPickLoop();
-    setInterval(runPickLoop, 1800);
+    setInterval(runPickLoop, 1900);
 
     // Arbetsflöde: Sticky Stacking Archive (3 full-screen cards)
     const mm = gsap.matchMedia();
