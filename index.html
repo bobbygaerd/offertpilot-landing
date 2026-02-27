@@ -826,11 +826,8 @@
       const posA = (pickStep % pickBoxes.length);
       const posB = ((pickStep + 4) % pickBoxes.length);
       const neg = ((pickStep + 7) % pickBoxes.length);
-      pickBoxes[posA].classList.add('hot-pos');
-      pickBoxes[posB].classList.add('hot-pos');
-      pickBoxes[neg].classList.add('hot-neg');
 
-      // skicka ut alla till höger
+      // först: skicka ut/in raderna
       gsap.to(pickBoxes, {
         x: 24,
         opacity: 0,
@@ -838,29 +835,36 @@
         stagger: 0.015,
         ease: 'power2.in',
         onComplete: () => {
-          // reset och skicka in från vänster
           gsap.set(pickBoxes, { x: -24, opacity: 0 });
           gsap.to(pickBoxes, {
             x: 0,
             opacity: 1,
             duration: 0.28,
             stagger: 0.018,
-            ease: 'power2.out'
+            ease: 'power2.out',
+            onComplete: () => {
+              // längre paus innan färg + upp/ner
+              setTimeout(() => {
+                pickBoxes[posA].classList.add('hot-pos');
+                pickBoxes[posB].classList.add('hot-pos');
+                pickBoxes[neg].classList.add('hot-neg');
+
+                // håll färgen en stund, återställ sen
+                setTimeout(() => {
+                  pickBoxes[posA].classList.remove('hot-pos');
+                  pickBoxes[posB].classList.remove('hot-pos');
+                  pickBoxes[neg].classList.remove('hot-neg');
+                }, 900);
+              }, 550);
+            }
           });
         }
       });
 
-      // återställ färg/position innan nästa varv
-      setTimeout(() => {
-        pickBoxes[posA].classList.remove('hot-pos');
-        pickBoxes[posB].classList.remove('hot-pos');
-        pickBoxes[neg].classList.remove('hot-neg');
-      }, 950);
-
       pickStep = (pickStep + 1) % pickBoxes.length;
     }
     runPickLoop();
-    setInterval(runPickLoop, 1900);
+    setInterval(runPickLoop, 2600);
 
     // Arbetsflöde: Sticky Stacking Archive (3 full-screen cards)
     const mm = gsap.matchMedia();
