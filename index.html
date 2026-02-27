@@ -76,12 +76,10 @@
     .typing{margin-top:10px;white-space:pre-wrap;min-height:120px}
     .cursor{display:inline-block;width:8px;height:1.05em;background:var(--accent);vertical-align:middle;animation:blink .9s step-end infinite}
 
-    .sched{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
-    .week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-    .d{padding:7px 0;text-align:center;border:1px solid var(--line);border-radius:8px;font-size:.78rem}
-    .d.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-    .save{margin-top:10px;border:1px solid var(--dark);padding:8px;border-radius:999px;text-align:center;font-size:.82rem}
-    .cursor-dot{position:absolute;width:12px;height:12px;border:2px solid #111;border-radius:50%;background:#fff;pointer-events:none;transform:translate(-50%,-50%);opacity:0}
+    .pick-row{margin-top:14px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:end;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+    .pick-box{height:54px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(180deg,#fff,#f3f4f6);transition:.25s ease}
+    .pick-box.pick-hot{background:linear-gradient(180deg,#ff8d7f,#e63b2e);border-color:#d4362b;transform:translateY(-8px);box-shadow:0 8px 16px rgba(230,59,46,.24)}
+    .pick-caption{margin-top:10px;font-size:.78rem;color:#666}
 
     .manifesto{background:#111;color:#f5f3ee;position:relative;overflow:hidden}
     .manifesto::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;opacity:.16;transform:scale(1.08)}
@@ -161,8 +159,8 @@
 
       <div class="features">
         <article class="artifact">
-          <h3>Sen återkoppling tappar affärer</h3>
-          <p class="sub">När rätt leads får svar för sent går kunderna till konkurrenter.</p>
+          <h3>Leadprioritering</h3>
+          <p class="sub">Automatisk prioritering av inkommande leads efter potential.</p>
           <div class="shuffle-stack" id="shuffle"></div>
         </article>
 
@@ -177,14 +175,15 @@
 
         <article class="artifact" style="position:relative">
           <h3>Ingen tydlig prioritering</h3>
-          <p class="sub">Utan struktur blir uppföljning ojämn och svår att mäta.</p>
-          <div class="sched" id="schedBox">
-            <div class="week">
-              <div class="d">S</div><div class="d">M</div><div class="d">T</div><div class="d">W</div><div class="d">T</div><div class="d">F</div><div class="d">S</div>
-            </div>
-            <div class="save">Spara rutin</div>
+          <p class="sub">Vi väljer ut rätt leads åt er så teamet fokuserar på rätt affärer först.</p>
+          <div class="pick-row" aria-label="Leadurval">
+            <div class="pick-box"></div>
+            <div class="pick-box pick-hot"></div>
+            <div class="pick-box"></div>
+            <div class="pick-box pick-hot"></div>
+            <div class="pick-box"></div>
           </div>
-          <div class="cursor-dot" id="cursorDot"></div>
+          <div class="pick-caption mono">Röd = hög prioritet</div>
         </article>
       </div>
     </div>
@@ -326,26 +325,6 @@
     }
     tick();
 
-    // Scheduler cursor
-    const dot=document.getElementById('cursorDot');
-    const days=[...document.querySelectorAll('.week .d')];
-    function runSched(){
-      days.forEach(d=>d.classList.remove('active'));
-      const target=days[5];
-      const box=target.getBoundingClientRect();
-      const host=document.getElementById('schedBox').getBoundingClientRect();
-      dot.style.opacity=1;
-      gsap.set(dot,{x:host.left+12,y:host.top+12});
-      gsap.to(dot,{x:box.left+box.width/2,y:box.top+box.height/2,duration:.8,ease:'power2.inOut',onComplete:()=>{
-        target.classList.add('active');
-        gsap.to(target,{scale:.95,duration:.12,yoyo:true,repeat:1});
-        const save=document.querySelector('.save').getBoundingClientRect();
-        gsap.to(dot,{x:save.left+save.width/2,y:save.top+save.height/2,duration:.7,delay:.2,ease:'power2.inOut',onComplete:()=>{
-          gsap.to(dot,{opacity:0,duration:.35});
-        }});
-      }});
-    }
-    setInterval(runSched,3000); setTimeout(runSched,800);
 
     // Arbetsflöde: Sticky Stacking Archive (3 full-screen cards)
     const mm = gsap.matchMedia();
