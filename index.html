@@ -740,8 +740,21 @@
       <h2>Bygg en stabil offertmotor.</h2>
       <p class="sub">Ansök om gratis Founding Pilot (3 platser). Start inom 5 dagar, ingen bindning. Fokus: bolag med
         60+ leads/mån.</p>
-      <a class="btn" href="mailto:info@offertsignal.se?subject=OffertSignal%20-%20Ans%C3%B6kan%20Founding%20Pilot"><span
-          class="slide"></span><span>Ansök om gratis pilot</span></a>
+
+      <form name="founding-pilot" method="POST" data-netlify="true" netlify-honeypot="company_website" style="max-width:680px;margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px">
+        <input type="hidden" name="form-name" value="founding-pilot" />
+        <p style="display:none">
+          <label>Leave this empty: <input name="company_website" /></label>
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <input name="name" placeholder="Namn" required style="padding:11px 12px;border:1px solid var(--line);border-radius:10px" />
+          <input name="company" placeholder="Företag" required style="padding:11px 12px;border:1px solid var(--line);border-radius:10px" />
+          <input name="email" type="email" placeholder="E-post" required style="padding:11px 12px;border:1px solid var(--line);border-radius:10px" />
+          <input name="phone" placeholder="Telefon" style="padding:11px 12px;border:1px solid var(--line);border-radius:10px" />
+        </div>
+        <textarea name="message" placeholder="Kort om ert nuvarande offertflöde (valfritt)" rows="3" style="margin-top:10px;width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px"></textarea>
+        <button class="btn" type="submit" style="margin-top:10px"><span class="slide"></span><span>Ansök om gratis pilot</span></button>
+      </form>
     </div>
   </section>
 
